@@ -16,7 +16,7 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 		z=$(java deterministicselect < test.txt k)
 
 		#############################################
-		###### BELOW FROM P1
+		###### BELOW FROM P1, need to update
 		if diff mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt; then
 			rm mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt
 		else
