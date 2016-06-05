@@ -76,7 +76,7 @@ public class deterministicselect {
      */
     public static void main(String[] args) {
 
-    	System.out.println("hi");
+    	// System.out.println("hi");
         Integer k = new Integer(args[0]);
         int[] b = StdIn.readAllInts();
 
