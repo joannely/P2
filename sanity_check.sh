@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # $1 indicates number of tests, $2 indicates number of integers in each test
+# in this project (122B_P2), $1 should be 100, $2 1000
 if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 	javac *.java #compile all .java files
 	RANDOM=$$
@@ -15,22 +16,20 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 		y=$(java quickselect < test.txt k)
 		z=$(java deterministicselect < test.txt k)
 
-		#############################################
-		###### BELOW FROM P1, need to update
-		if diff x y; then
-		if diff mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt; then
-			rm mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt
+		#if all results match, delte test.txt and proceed to next round
+		if [ $x == $y ] && [ $y == $z ]; then
+			rm test.txt
 		else
-			((COUNTER++))
+			echo Failed test. k value = $k
+			cat test.txt
+			echo quicksort result: 			$x
+			echo quickselect result: 		$y
+			echo deterministicselect result: 	$z
+			exit 1
 		fi
 	done
-	#display results
-	if [ "$COUNTER" == 0 ]; then
-		echo "All tests passed."
-	else
-		echo "$COUNTER tests failed."
-	fi
-	rm -rf test*.txt
+
+
 else
 	echo "Please supply two integer arguments"
 fi
