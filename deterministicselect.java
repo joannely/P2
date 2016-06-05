@@ -1,14 +1,3 @@
-/**
- *  The <tt>Quick</tt> class provides static methods for sorting an
- *  array and selecting the ith smallest element in an array using quicksort.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- */
-
 import java.util.*; 
 public class deterministicselect {
 
@@ -17,7 +6,7 @@ public class deterministicselect {
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
 
-    public static Integer Select(Integer[] a, int k, int lo, int hi) {
+    public static Integer Select(Integer[] a, int k, int lo, int hi){
     	if(hi-lo == 0){
     		System.out.println(a[hi]);
     		return a[hi];
@@ -36,6 +25,7 @@ public class deterministicselect {
     	ArrayList groups = new ArrayList();
 
     	int tempmed = 0;
+    	int[] medians = new int[g];
 
     	for(int i=0; i<g; i++){
     		int[] group = new int[5];
@@ -45,16 +35,9 @@ public class deterministicselect {
     			}
     			group[j] = a[index];
     			index = index + 1;
-    		}//littlefor
+    		}
     		Arrays.sort(group);
-    		tempmed = 
-    		     
-    	}//bigfor
-
-    	int[] medians = new int[g];
-    	int[] temparray = new int[5];
-    	for(int i=0; i<g; i++){
-    		medians[i] = groups.get(i)[2];
+    		medians[i] = group[2];
     	}
 
     	Arrays.sort(medians);
@@ -76,11 +59,11 @@ public class deterministicselect {
     	}
 
     	if(li <= k){
-    		Select(a, k, 0, li-1);
+    		return Select(a, k, 0, li-1);
     	}
 
     	else{
-    		Select(a, k, li, a.length-1);
+    		return Select(a, k, li, a.length-1);
     	}
 
     }
@@ -92,6 +75,8 @@ public class deterministicselect {
      * standard output, but this time, using the select method.
      */
     public static void main(String[] args) {
+
+    	System.out.println("hi");
         Integer k = new Integer(args[0]);
         int[] b = StdIn.readAllInts();
 
