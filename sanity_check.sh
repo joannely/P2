@@ -17,6 +17,7 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 
 		#############################################
 		###### BELOW FROM P1, need to update
+		if diff x y; then
 		if diff mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt; then
 			rm mergesort_failed_test_"$n".txt quicksort_failed_test_"$n".txt
 		else
