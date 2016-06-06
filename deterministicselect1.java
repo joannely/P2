@@ -106,10 +106,7 @@ public class deterministicselect1 {
             a[i] = Integer.valueOf(b[i]);
         }
         System.out.println(a.length);
-
         System.out.println(deterministicselect1.Select(a, k, 0, a.length-1));
-
-
     }
 
 }

@@ -8,14 +8,19 @@
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class quickselect {
-
+public class quickselect_stats {
+    public static int PARTITION_STAGES;
+    public static int EXCHANGES;
+    public static int COMPARES;
     // This class should not be instantiated.
-    private quickselect() { }
+
+    private quickselect_stats() { }
 
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
     private static int partition(Integer[] a, int lo, int hi) {
+        PARTITION_STAGES++;
+
         int i = lo;
         int j = hi + 1;
 
@@ -27,11 +32,23 @@ public class quickselect {
         //Integer v = a[lo];
         while (true) { 
             // find item on lo to swap
-            while (less(a[++i], v))
-                if (i == hi) break;
+            while (less(a[++i], v)) {
+                if (i == hi) {
+                    COMPARES++;
+                    break;
+                }
+            }
+            COMPARES++;
+
             // find item on hi to swap
-            while (less(v, a[--j]))
-                if (j == lo) break;  
+            while (less(v, a[--j])) {
+                if (j == lo) { 
+                    COMPARES++;
+                    break;  
+                }
+            }
+            COMPARES++;
+
             // check if pointers cross
             if (i >= j) break;
             exch(a, i, j);
@@ -43,7 +60,6 @@ public class quickselect {
         // now, a[lo .. j-1] <= a[j] <= a[j+1 .. hi]
         return j;
     }
-
 
     public static Integer findKthLargest(Integer[] a, int k) {
         if (k <= 0 || k > a.length) {
@@ -70,6 +86,7 @@ public class quickselect {
         
     // exchange a[i] and a[j]
     private static void exch(Object[] a, int i, int j) {
+        EXCHANGES++;
         Object swap = a[i];
         a[i] = a[j];
         a[j] = swap;
@@ -100,8 +117,10 @@ public class quickselect {
         }
 
 
-        System.out.println(quickselect.findKthLargest(a, k.intValue()));
-
+        quickselect_stats.findKthLargest(a, k.intValue());
+        System.out.println("Partitioning Stages: " + PARTITION_STAGES);
+        System.out.println("Exchanges: " + EXCHANGES);
+        System.out.println("Compares: " + COMPARES);
     }
 
 }
