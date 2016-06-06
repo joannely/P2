@@ -11,40 +11,61 @@ public class deterministicselect {
     		System.out.println(a[hi]);
     		return a[hi];
     	}
+    	System.out.println("lo: "+lo+" hi: "+hi);
 
     	int n = hi - lo + 1;
-    	int g = 0;
-    	if(n % 5 == 0){
-    		g = n/5;
-    	}
-    	else{
-    		g = n/5+1;
-    	}
+    	int g = n/5;
     	int index = lo;
+    	int bit = 0;
 
-    	ArrayList groups = new ArrayList();
+    	if(n%5 != 0){
+    		bit = 1;
+    	}
 
-    	int tempmed = 0;
-    	int[] medians = new int[g];
+    	int[] medians = new int[n/5 + bit];
+
+    	
+
+    	int[] group = new int[5];
+    	int[] lastgroup = new int[n%5];
+   
+    	System.out.println("n "+n);
+    	System.out.println("g "+g);
+    	System.out.println("lastgroupsize: " + lastgroup.length);
 
     	for(int i=0; i<g; i++){
-    		int[] group = new int[5];
-    		for(int j=0; j<5; j++){
-    			if(index > hi){
-    				group[j] = group[0];
-    			}
-    			group[j] = a[index];
+    	 	System.out.println("here" + index);
+    	 	for(int j=0; j<5; j++){
+    	 		group[j] = a[index];
     			index = index + 1;
     		}
     		Arrays.sort(group);
+    		for(int q=0; q<5; q++){
+    			System.out.print(group[q]+" ");
+    		}
+    		System.out.print("\n");
     		medians[i] = group[2];
+	
+    	 }//for
+    		
+
+    	for(int i=0; i<lastgroup.length; i++){
+    		lastgroup[i] = a[index+i];
     	}
 
+
+    	Arrays.sort(lastgroup);
+    	if(lastgroup.length != 0){
+    		medians[medians.length-1] = lastgroup[lastgroup.length/2];
+    	}
+    	
     	Arrays.sort(medians);
 
     	int p = medians[g/2];
 
-    	int[] newarray = new int[a.length];
+    	System.out.println("pivot: " + p);
+
+    	Integer[] newarray = new Integer[a.length];
     	int li = 0;
     	int ri = a.length-1;
     	for(int i=0; i<a.length; i++){
@@ -57,13 +78,19 @@ public class deterministicselect {
     			ri = ri - 1;
     		}
     	}
+    	for(int q=0; q<newarray.length; q++){
+    		System.out.print(newarray[q] + " ");
+    	}
+    	System.out.print("\n");
+    	System.out.println("li "+li);
+    	System.out.println("ri "+(ri-1));
 
     	if(li <= k){
-    		return Select(a, k, 0, li-1);
+    		return Select(newarray, k, 0, li-1);
     	}
 
     	else{
-    		return Select(a, k, li, a.length-1);
+    		return Select(newarray, k, li, a.length-1);
     	}
 
     }
@@ -76,7 +103,6 @@ public class deterministicselect {
      */
     public static void main(String[] args) {
 
-    	System.out.println("hi");
         Integer k = new Integer(args[0]);
         int[] b = StdIn.readAllInts();
 
@@ -84,6 +110,7 @@ public class deterministicselect {
         for(int i = 0; i < b.length; i++) {
             a[i] = Integer.valueOf(b[i]);
         }
+        System.out.println(a.length);
 
 
         Select(a, k, 0, a.length-1);
