@@ -7,14 +7,14 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 	RANDOM=$$
 	for n in $(seq 1 $1); do
 		#creates text file with $2 integers ranging from 1-10^6
-		shuf -i 1-1000000 -n $2 >> test.txt
+		gshuf -i 1-1000000 -n $2 >> test.txt
 		
 		k=$(($RANDOM % ($2+1) +1))
 
 		#run the sort, save result in variable x/y/z
-		x=$(java quicksortKth < test.txt k)
-		y=$(java quickselect < test.txt k)
-		z=$(java deterministicselect < test.txt k)
+		x=$(java quicksortKth < test.txt $k)
+		y=$(java quickselect < test.txt $k)
+		z=$(java deterministicselect < test.txt $k)
 
 		#if all results match, delte test.txt and proceed to next round
 		if [ $x == $y ] && [ $y == $z ]; then
@@ -27,6 +27,7 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 			echo deterministicselect result: 	$z
 			exit 1
 		fi
+		echo All Tests Passed.
 	done
 
 

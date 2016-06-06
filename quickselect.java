@@ -101,7 +101,7 @@ public class quickselect {
         }
 
 
-        System.out.println(quickselect.findKthLargest(a, k));
+        System.out.println(quickselect.findKthLargest(a, k.intValue()));
 
     }
 
