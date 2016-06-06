@@ -103,6 +103,10 @@ public class deterministicselect {
      */
     public static void main(String[] args) {
 
+<<<<<<< HEAD
+=======
+    	// System.out.println("hi");
+>>>>>>> 6566049a8be22b32ac311066f45340bacc973eef
         Integer k = new Integer(args[0]);
         int[] b = StdIn.readAllInts();
 

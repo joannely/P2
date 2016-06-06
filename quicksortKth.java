@@ -125,7 +125,7 @@ public class quicksortKth {
         quicksortKth.sort(a);
 
 
-        System.out.println(a[a.length-k]);
+        System.out.println(a[a.length-k.intValue()]);
     }
 
 }
