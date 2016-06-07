@@ -1,10 +1,11 @@
-
-public class deterministicselect {
-
-
+public class deterministic_stats {
+    public static int PARTITION_STAGES;
+    public static int EXCHANGES;
+    public static int COMPARES;
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
     private static int partition(Integer[] a, int lo, int hi, int pivot) {
+        PARTITION_STAGES++;
         int i = lo;
         int j = hi + 1;
 
@@ -14,11 +15,23 @@ public class deterministicselect {
         //Integer v = a[lo];
         while (true) { 
             // find item on lo to swap
-            while (less(a[++i], v))
-                if (i == hi) break;
+            while (less(a[++i], v)) {
+                if (i == hi) {
+                    COMPARES++;
+                    break;
+                }
+            }
+            COMPARES++;
+
             // find item on hi to swap
-            while (less(v, a[--j]))
-                if (j == lo) break;  
+            while (less(v, a[--j])) {
+                if (j == lo) {
+                    COMPARES++;
+                    break;
+                }
+            }
+            COMPARES++;
+
             // check if pointers cross
             if (i >= j) break;
             exch(a, i, j);
@@ -121,11 +134,11 @@ public class deterministicselect {
         
     // exchange a[i] and a[j]
     private static void exch(Object[] a, int i, int j) {
+        EXCHANGES++;
         Object swap = a[i];
         a[i] = a[j];
         a[j] = swap;
     }
-
 
     /**
      * Reads in a sequence of strings from standard input; quicksorts them; 
@@ -141,8 +154,11 @@ public class deterministicselect {
         for(int i = 0; i < b.length; i++) {
             a[i] = Integer.valueOf(b[i]);
         }
-        System.out.println(deterministicselect.select(a, k.intValue()));
 
+        System.out.println(deterministic_stats.select(a, k.intValue()));
+        System.out.println("Partitioning Stages: " + PARTITION_STAGES);
+        System.out.println("Exchanges: " + EXCHANGES);
+        System.out.println("Compares: " + COMPARES);
     }
 
 }
