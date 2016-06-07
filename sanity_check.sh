@@ -16,7 +16,7 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 		y=$(java quickselect < test.txt $k)
 		z=$(java deterministicselect < test.txt $k)
 
-		#if all results match, delte test.txt and proceed to next round
+		#if all results match, delete test.txt and proceed to next round
 		if [ $x == $y ] && [ $y == $z ]; then
 			rm test.txt
 		else
@@ -27,9 +27,8 @@ if [[ "$1" = *[[:digit:]]* ]]  && [[ "$2" = *[[:digit:]]* ]]; then
 			echo deterministicselect result: 	$z
 			exit 1
 		fi
-		echo All Tests Passed.
 	done
-
+	echo All Tests Passed.
 
 else
 	echo "Please supply two integer arguments"
